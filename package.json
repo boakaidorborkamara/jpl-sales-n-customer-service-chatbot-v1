@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "jpl-sales-n-customer-service-chatbot-v1",
+  "description": "A Facebook messenger chat bot that processes sales orders",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boakaidorborkamara/jpl-sales-n-customer-service-chatbot-v1.git"
+  },
+  "keywords": [
+    "chatbot",
+    "nodejs",
+    "javascript",
+    "webhook"
+  ],
+  "author": "Boakai Dorbor Kamara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boakaidorborkamara/jpl-sales-n-customer-service-chatbot-v1/issues"
+  },
+  "homepage": "https://github.com/boakaidorborkamara/jpl-sales-n-customer-service-chatbot-v1#readme"
+}

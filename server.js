@@ -3,7 +3,9 @@ require('dotenv').config();
 
 
 const PORT = process.env.PORT || 3000;
-console.log(process.env);
+// console.log(process.env);
+
+const app = express();
 
 // Add support for GET requests to our webhook
 app.get("/messaging-webhook", (req, res) => {
@@ -27,7 +29,6 @@ app.get("/messaging-webhook", (req, res) => {
       }
 });
 
-const app = express();
 app.listen(PORT,()=>{
     console.log(`Server is listening on ${PORT}`);
 })

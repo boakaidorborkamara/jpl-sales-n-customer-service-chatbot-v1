@@ -1,9 +1,10 @@
-const express = require('express');
 require('dotenv').config();
+const express = require('express');
+
 
 
 const PORT = process.env.PORT || 3000;
-// console.log(process.env);
+
 
 const app = express();
 
@@ -45,11 +46,13 @@ app.get("/messaging-webhook", (req, res) => {
     let mode = req.query["hub.mode"];
     let token = req.query["hub.verify_token"];
     let challenge = req.query["hub.challenge"];
+
+    let VERIFY_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
   
     // Check if a token and mode is in the query string of the request
     if (mode && token) {
       // Check the mode and token sent is correct
-      if (mode === "subscribe" && token === config.verifyToken) {
+      if (mode === "subscribe" && token === VERIFY_TOKEN) {
         // Respond with the challenge token from the request
         console.log("WEBHOOK_VERIFIED");
         res.status(200).send(challenge);
@@ -58,6 +61,7 @@ app.get("/messaging-webhook", (req, res) => {
         res.sendStatus(403);
       }
     }
+
 });
 
 
@@ -65,3 +69,5 @@ app.get("/messaging-webhook", (req, res) => {
 app.listen(PORT,()=>{
     console.log(`Server is listening on ${PORT}`);
 })
+
+

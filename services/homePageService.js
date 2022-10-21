@@ -127,3 +127,10 @@ let markMessageRead = (sender_psid)=>{
 }
 
 
+module.exports = {
+    handleProfileAPI: handleProfileAPI,
+    getFacebookUsername: getFacebookUsername,
+    sendTypingOn:sendTypingOn,
+    markMessageRead:markMessageRead
+}
+

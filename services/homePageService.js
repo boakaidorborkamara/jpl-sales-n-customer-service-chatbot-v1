@@ -1,3 +1,5 @@
+const { response } = require('express');
+
 require('dotenv').config();
 
 //handle setting up of persistent menu and GET STARTED btn
@@ -61,4 +63,22 @@ let handleProfileAPI = async ()=>{
     const content = await response.json();
     return content;
    
+}
+
+
+//responsible to get the username of each person interacting with our bot
+let getFacebookUsername = async (sender_id)=>{
+    let url = `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${PAGE_ACCESS_TOKEN}`;
+
+    await fetch(url)
+    .then((response)=>response.json)
+    .then((data)=>{
+        let username = data;
+    })
+    .catch((err)=>{
+        if(err){
+            console.log(err);
+        }
+    })
+        
 }

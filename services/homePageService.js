@@ -1,5 +1,4 @@
-const { response } = require('express');
-
+const express = require('express');
 require('dotenv').config();
 
 //handle setting up of persistent menu and GET STARTED btn
@@ -67,7 +66,7 @@ let handleProfileAPI = async ()=>{
 
 
 //responsible to get the username of each person interacting with our bot
-let getFacebookUsername = async (sender_id)=>{
+let getFacebookUsername = async (sender_psid)=>{
     let url = `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${PAGE_ACCESS_TOKEN}`;
 
     await fetch(url)
@@ -81,4 +80,28 @@ let getFacebookUsername = async (sender_id)=>{
         }
     })
         
+}
+
+
+//notify user when the bot is typing
+let sendTypingOn = async (sender_psid)=>{
+
+    let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
+
+    let request_body = {
+        "recipient": {
+            "id": sender_psid
+        },
+        "sender_action": "typing_on"
+    };
+
+    const response = await fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':"application/json"
+        },
+        body:JSON.stringify(request_body)
+    });
+
+    // let content = await response;
 }

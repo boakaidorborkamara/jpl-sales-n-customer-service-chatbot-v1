@@ -41,6 +41,12 @@ let sendWelcomeMessages = async function(sender_psid){
             },
         ]
     };
+
+    //send the responses
+    sendMessage(sender_psid, response1);
+    sendMessage(sender_psid, response2);
+    sendMessage(sender_psid, response3);
+
 }
 
 //responsible to send message

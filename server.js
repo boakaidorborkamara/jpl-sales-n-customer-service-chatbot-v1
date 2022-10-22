@@ -5,6 +5,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request'); //allow sending of http requests to facebook server
 
+const coreChatbotServices = require('./services/coreChatbotServices');
+
 
 const PORT = process.env.PORT || 3000; // define Port
 const app = express().use(bodyParser.json()); // creates express http server
@@ -38,7 +40,8 @@ function handlePostback(sender_psid, received_postback) {
 
   // Set the response based on the postback payload
   if (payload === 'Get started') {
-    response = { "text": "You are about to get started!" }
+    // response = { "text": "You are about to get started!" }
+    coreChatbotServices.sendMessage(sender_psid);
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
   }

@@ -75,3 +75,8 @@ let sendMessage = async function (sender_psid, response){
          body:request_body
      })
 }
+
+
+module.exports ={
+    sendMessage:sendMessage
+}

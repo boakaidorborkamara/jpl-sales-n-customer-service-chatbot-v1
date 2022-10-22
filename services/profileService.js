@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 
 //handle setting up of persistent menu and GET STARTED btn
-let handleProfileAPI = async ()=>{
+let setupProfile = async ()=>{
 
     // facebook graph url 
     let url = "`https://graph.facebook.com/v7.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}";
@@ -83,54 +83,10 @@ let getFacebookUsername = async (sender_psid)=>{
 }
 
 
-//notify user when the bot is typing
-let sendTypingOn = async (sender_psid)=>{
-
-    let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
-
-    let request_body = {
-        "recipient": {
-            "id": sender_psid
-        },
-        "sender_action": "typing_on"
-    };
-
-    const response = await fetch(url,{
-        method:'POST',
-        headers:{
-            'Content-Type':"application/json"
-        },
-        body:JSON.stringify(request_body)
-    });
-
-    // let content = await response;
-}
-
-//notify user when message is being read
-let markMessageRead = (sender_psid)=>{
-    let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
-
-    let request_body = {
-        "recipient": {
-            "id": sender_psid
-        },
-        "sender_action": "mark_seen"
-    };
-
-    const response = await fetch(url,{
-        method:'POST',
-        headers:{
-            'Content-Type':"application/json"
-        },
-        body:JSON.stringify(request_body)
-    });
-}
 
 
 module.exports = {
-    handleProfileAPI: handleProfileAPI,
-    getFacebookUsername: getFacebookUsername,
-    sendTypingOn:sendTypingOn,
-    markMessageRead:markMessageRead
+    setupProfile:setupProfile,
+    getFacebookUsername: getFacebookUsername
 }
 

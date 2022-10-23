@@ -1,10 +1,9 @@
 require("dotenv").config();
-import fetch from "node-fetch";
 
 //notify user when the bot is typing
 const sendTypingOn = async function (sender_psid){
 
-    let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
+    let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${process.env.PAGE_ACCESS_TOKEN}`;
 
     let request_body = {
         "recipient": {

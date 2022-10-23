@@ -7,6 +7,9 @@
     "nodemon": "^2.0.20",
     "request": "^2.88.2"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "node server.js"
   },

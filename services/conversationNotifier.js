@@ -1,5 +1,8 @@
+require("dotenv").config();
+import fetch from "node-fetch";
+
 //notify user when the bot is typing
-let sendTypingOn = async (sender_psid)=>{
+const sendTypingOn = async function (sender_psid){
 
     let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
 
@@ -18,12 +21,14 @@ let sendTypingOn = async (sender_psid)=>{
         body:JSON.stringify(request_body)
     });
 
-    // let content = await response;
+    let content = await response.json();
+
+    return content;
 }
 
 //notify user when message is being read
-let markMessageRead = (sender_psid)=>{
-    let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`;
+let markMessageRead = async (sender_psid)=>{
+    let url = `https://graph.facebook.com/v6.0/me/messages?access_token=${process.env.PAGE_ACCESS_TOKEN}`;
 
     let request_body = {
         "recipient": {

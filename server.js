@@ -39,7 +39,7 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'Get started') {
+  if (payload === 'get_started') {
     // response = { "text": "You are about to get started!" }
     coreChatbotServices.sendMessage(sender_psid);
   } else if (payload === 'no') {

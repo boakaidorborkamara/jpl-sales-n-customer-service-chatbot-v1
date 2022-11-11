@@ -1,11 +1,14 @@
+require("dotenv").config();
 const express = require('express');
-require('dotenv').config();
+const request = require('request');
+
 
 //handle setting up of persistent menu and GET STARTED btn
 let setupProfile = async ()=>{
 
+    console.log("setup profile code running");
     // facebook graph url 
-    let url = "`https://graph.facebook.com/v7.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}";
+    let url = `https://graph.facebook.com/v15.0/me/messenger_profile?access_token=${process.env.PAGE_ACCESS_TOKEN}`;
 
     // request body to be sent to facebook server url 
     let request_body={
@@ -19,9 +22,20 @@ let setupProfile = async ()=>{
                 "call_to_actions": [
                     {
                         "type": "postback",
-                        "title": "Talk to an agent",
-                        "payload": "TALK_AGENT"
+                        "title": "Shop",
+                        "payload": "SHOP"
                     },
+                    {
+                        "type": "postback",
+                        "title": "Talk to a Customer Service Agent",
+                        "payload": "CUSTOMER_SERVICE_AGENT"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "FAQs",
+                        "payload": "FAQs"
+                    },
+                    
                     {
                         "type": "postback",
                         "title": "Restart this conversation",
@@ -50,37 +64,65 @@ let setupProfile = async ()=>{
         ]
     }
 
-    //execute request
-    const response = await fetch(url,{
-        method: 'POST',
-        headers:{
-            'Content-Type': 'application/json'
-        },
-        body:JSON.stringify(request_body)
-    });
+    try{
+        //execute request
+        const options = {
+            url:url,
+            method:"POST",
+            contentType: 'application/json',
+            json: request_body
+        }
 
-    const content = await response.json();
-    return content;
+        request(options,(err,res,body)=>{
+            if (!err) {
+                console.log('Menu setup!');
+            } else {
+                console.error("Unable to setup menu:" + err);
+            }
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
    
 }
 
 
 //responsible to get the username of each person interacting with our bot
 let getFacebookUsername = async (sender_psid)=>{
-    let url = `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${PAGE_ACCESS_TOKEN}`;
+    try{
+        let url = `https://graph.facebook.com/${sender_psid}?    fields=first_name,last_name,profile_pic&access_token=${process.env.PAGE_ACCESS_TOKEN}`;
 
-    await fetch(url)
-    .then((response)=>response.json)
-    .then((data)=>{
-        let username = data;
-    })
-    .catch((err)=>{
-        if(err){
-            console.log(err);
-        }
-    })
-        
-}
+     let full_name;
+
+      //execute request
+      const options = {
+          url:url,
+          method:"GET",
+      }
+
+       request(options,(err,res,body)=>{``
+          if (!err) {
+              console.log('Got profile!');
+              let user_profile_info = JSON.parse(body);
+              full_name = `${user_profile_info.first_name} ${user_profile_info.last_name}`;
+
+              console.log(user_profile_info);
+              console.log(full_name);
+              console.log("RETURNING DATA");
+               return 'sample name';
+              console.log("DONE RETURNING");
+          } else {
+              console.error("Unable to get profile:" + err);
+          }
+      })
+
+    // console.log(full_name);
+      return full_name;
+    }catch(err){
+     console.log(err);
+    }
+  }
 
 
 

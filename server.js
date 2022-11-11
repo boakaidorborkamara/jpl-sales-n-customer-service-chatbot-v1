@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000; // define Port
 const app = express().use(bodyParser.json()); // creates express http server
 
 
-
+ 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
@@ -41,7 +41,7 @@ function handlePostback(sender_psid, received_postback) {
   // Set the response based on the postback payload
   if (payload === 'get_started') {
     // response = { "text": "You are about to get started!" }
-    coreChatbotServices.sendMessage(sender_psid);
+  coreChatbotServices.sendWelcomeMessages(sender_psid);
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
   }
@@ -68,7 +68,7 @@ function callSendAPI(sender_psid, response) {
     "json": request_body
   }, (err, res, body) => {
     if (!err) {
-      console.log('message sent!')
+      console.log('message sent!');
     } else {
       console.error("Unable to send message:" + err);
     }
